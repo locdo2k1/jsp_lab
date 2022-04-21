@@ -3,21 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package controllers;
 
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DataUtility;
+import model.Product;
+import org.apache.jasper.tagplugins.jstl.ForEach;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(urlPatterns = {"/XuLy"})
-public class XuLy extends HttpServlet {
+@WebServlet(name = "LoadAllProduct", urlPatterns = {"/LoadAllProduct"})
+public class LoadAllProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,23 +36,9 @@ public class XuLy extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");        
         
-        //Lệnh lấy dữ liệu từ form chuyển đến
-        String id = request.getParameter("empId");
-        String name = request.getParameter("empName");
-        String address = request.getParameter("addr");
-        String position = request.getParameter("position");
         
-        //Lệnh chuyển dữ liệu đi các trang khác
-        request.setAttribute("empId", id);
-        request.setAttribute("empName", name);
-        request.setAttribute("address", address);
-        request.setAttribute("position", position);
-        
-        //chuyển trang:
-        request.getRequestDispatcher("display_form_full.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,6 +54,19 @@ public class XuLy extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        ProductDao dao = new ProductDao();
+        
+        List<Product> products = dao.getAllProducts();
+        
+        for (Product product : products) {
+            product.getProId();
+        }
+        
+        request.setAttribute("products", dao.getAllProducts());
+        
+        
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
