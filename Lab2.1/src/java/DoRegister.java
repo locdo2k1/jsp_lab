@@ -40,6 +40,8 @@ public class DoRegister extends HttpServlet {
         String address = request.getParameter("address");
         String country = request.getParameter("country");
         String[] favorite = request.getParameterValues("favorite");
+        
+        String str = "chang branch lab2.1";
 
         //mang dữ liệu đi bằng thiết lập giá trị qua attribute
         request.setAttribute("id", id);
