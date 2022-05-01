@@ -45,6 +45,8 @@ public class XuLy extends HttpServlet {
         request.setAttribute("address", address);
         request.setAttribute("position", position);
         
+        String chang = "chang file xu ly";
+        
         //chuyển trang:
         request.getRequestDispatcher("display_form_full.jsp").forward(request, response);
     }
