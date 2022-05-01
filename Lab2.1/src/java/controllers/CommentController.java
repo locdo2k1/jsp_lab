@@ -38,6 +38,9 @@ public class CommentController extends HttpServlet {
         String phone=request.getParameter("phone");
         String note=request.getParameter("note");
         
+        
+        
+        
         try(PrintWriter out=response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
