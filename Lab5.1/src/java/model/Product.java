@@ -60,7 +60,7 @@ public class Product {
     }
  
     public float getPrice() {
-        return price;
+        return price      ;
     }
  
     
